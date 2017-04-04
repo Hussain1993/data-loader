@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%t] %d %-5p - %m (%c.%M:%L)%n"/>
+            <!--<param name="ConversionPattern" value="%t%n"/>-->
+        </layout>
+    </appender>
+
+    <logger name="org.apache">
+        <level value="WARN" />
+    </logger>
+
+    <logger name="org.apache.camel">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="org.apache.activemq">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="org.springframework">
+        <level value="WARN" />
+    </logger>
+
+    <logger name="java.sql">
+        <level value="WARN" />
+    </logger>
+
+    <root>
+        <priority value="DEBUG"/>
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</log4j:configuration>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://camel.apache.org/schema/spring
+                           http://camel.apache.org/schema/spring/camel-spring-2.16.0.xsd">
+
+
+  <bean id="myBean" class="com.hussain.pink.triangle.Test"/>
+
+  <camelContext xmlns="http://camel.apache.org/schema/spring" allowUseOriginalMessage="false">
+    <restConfiguration component="servlet" bindingMode="json" contextPath="/data"
+      port="8080"/>
+
+    <route>
+      <from uri="timer://myTimer?repeatCount=1"/>
+      <to uri="bean:myBean?method=test"/>
+    </route>
+
+
+  </camelContext>
+
+</beans>
