@@ -7,16 +7,25 @@
                            http://camel.apache.org/schema/spring
                            http://camel.apache.org/schema/spring/camel-spring-2.16.0.xsd">
 
+  <bean id="properties"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:data-loader.properties"/>
+  </bean>
 
-  <bean id="myBean" class="com.hussain.pink.triangle.Test"/>
+  <bean id="fileWatcher" class="com.hussain.pink.triangle.filewatcher.FileWatcher">
+    <constructor-arg value="${drop.directory}"/>
+  </bean>
+
 
   <camelContext xmlns="http://camel.apache.org/schema/spring" allowUseOriginalMessage="false">
+    <propertyPlaceholder id="camelContextProperties" location="classpath:data-loader.properties"/>
+
     <restConfiguration component="servlet" bindingMode="json" contextPath="/data"
-      port="8080"/>
+      port="{{api.port}}"/>
 
     <route>
       <from uri="timer://myTimer?repeatCount=1"/>
-      <to uri="bean:myBean?method=test"/>
+      <to uri="bean:fileWatcher?method=watchDropFolder"/>
     </route>
 
 
