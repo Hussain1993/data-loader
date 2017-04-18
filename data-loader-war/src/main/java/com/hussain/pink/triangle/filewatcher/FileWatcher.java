@@ -1,7 +1,6 @@
 package com.hussain.pink.triangle.filewatcher;
 
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
-import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 import com.hussain.pink.triangle.exception.FileWatcherException;
 import java.io.File;
@@ -50,9 +49,7 @@ public class FileWatcher {
         for (WatchEvent<?> watchEvent : watchKey.pollEvents()) {
           kind = watchEvent.kind();
 
-          if (kind == OVERFLOW) {
-            continue;
-          } else if (kind == ENTRY_CREATE) {
+          if (kind == ENTRY_CREATE) {
             Path newFileDrop = ((WatchEvent<Path>) watchEvent).context();
             LOG.info("A new file has been dropped: {}", newFileDrop.toFile());
           }
